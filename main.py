@@ -8,7 +8,7 @@ app=FastAPI()
 @app.get("/")
 async def get_index():
     return FileResponse("index.html")
-# app.mount("/",StaticFiles(directory="."),name="static")
+
 @app.get("/style.css")
 async def  get_style():
     return FileResponse("style.css")
