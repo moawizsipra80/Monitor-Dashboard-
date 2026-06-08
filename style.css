@@ -1,2 +1,354 @@
 /* Premium CSS Stylesheet for System Monitor & Dashboard */
-/* We will define our HSL color variables, CSS reset, glassmorphism cards, and responsiveness here. */
+:root {
+    --bg-color: #080b16;
+    --card-bg: rgba(17, 22, 40, 0.65);
+    --border-color: rgba(255, 255, 255, 0.06);
+    --text-color: #e2e8f0;
+    --text-muted: #64748b;
+    
+    /* Premium accents */
+    --accent-blue: #00d2ff;
+    --accent-green: #00e676;
+    --accent-purple: #a855f7;
+    --accent-red: #ff1744;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    background-image: radial-gradient(circle at 5% 5%, rgba(0, 210, 255, 0.08) 0%, transparent 35%),
+                      radial-gradient(circle at 95% 95%, rgba(168, 85, 247, 0.08) 0%, transparent 35%);
+    color: var(--text-color);
+    min-height: 100vh;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.dashboard-container {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Header styling */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 18px;
+}
+
+.header-title h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-title h1 i {
+    color: var(--accent-blue);
+    text-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+}
+
+.header-title p {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 3px;
+}
+
+/* Status Connection Badge */
+.status-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+}
+
+.status-badge.connected {
+    color: var(--accent-green);
+    border-color: rgba(0, 230, 118, 0.2);
+    background: rgba(0, 230, 118, 0.03);
+}
+
+.status-badge.connected .status-dot {
+    background-color: var(--accent-green);
+    box-shadow: 0 0 10px var(--accent-green);
+}
+
+.status-badge.disconnected {
+    color: var(--accent-red);
+    border-color: rgba(255, 23, 68, 0.2);
+    background: rgba(255, 23, 68, 0.03);
+}
+
+.status-badge.disconnected .status-dot {
+    background-color: var(--accent-red);
+    box-shadow: 0 0 10px var(--accent-red);
+}
+
+/* Grid Layout */
+.status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+.card-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.01);
+}
+
+.card-header h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #cbd5e1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+/* Progress Indicators */
+.metric-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.5px;
+    margin-bottom: 12px;
+}
+
+.progress-bar-container {
+    height: 5px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    border-radius: 10px;
+    transition: width 0.8s cubic-bezier(0.1, 1, 0.1, 1);
+}
+
+#cpu-progress { background: linear-gradient(90deg, #00d2ff, #0072ff); }
+#memory-progress { background: linear-gradient(90deg, #00e676, #009624); }
+#disk-progress { background: linear-gradient(90deg, #a855f7, #6366f1); }
+
+.metric-subtext {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+/* Network Speed block */
+.network-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: center;
+    min-height: 75px;
+}
+
+.net-stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+}
+
+.net-stat span {
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.net-stat span i {
+    font-size: 11px;
+}
+
+.net-stat strong {
+    color: #f1f5f9;
+}
+
+/* Chart Canvas styling */
+.chart-card {
+    width: 100%;
+}
+
+.chart-container {
+    position: relative;
+    height: 250px;
+    width: 100%;
+}
+
+/* Process Explorer styling */
+.search-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.search-box {
+    position: relative;
+    width: 260px;
+}
+
+.search-box i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 8px 12px 8px 36px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: #fff;
+    font-size: 12px;
+    outline: none;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+.search-box input:focus {
+    border-color: var(--accent-blue);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    max-height: 380px;
+    overflow-y: auto;
+}
+
+.process-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 13px;
+}
+
+.process-table th {
+    padding: 12px 16px;
+    color: var(--text-muted);
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.process-table th i {
+    margin-right: 6px;
+    font-size: 12px;
+}
+
+.process-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+    color: #cbd5e1;
+}
+
+.process-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.015);
+}
+
+.cpu-badge {
+    background: rgba(0, 210, 255, 0.08);
+    color: var(--accent-blue);
+    padding: 3px 7px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 11px;
+}
+
+.btn-kill {
+    background: rgba(255, 23, 68, 0.08);
+    color: var(--accent-red);
+    border: 1px solid rgba(255, 23, 68, 0.15);
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s;
+}
+
+.btn-kill:hover {
+    background: var(--accent-red);
+    color: #fff;
+    border-color: var(--accent-red);
+    box-shadow: 0 0 10px rgba(255, 23, 68, 0.3);
+}
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
