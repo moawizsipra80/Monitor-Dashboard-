@@ -45,16 +45,16 @@ async def websocket_endpoint(websocket:WebSocket):
          print("Client disconnected from Websocket")
 @app.get("/api/process")
 async def get_processes():
-    processes=[]
-    for proc in psutil.process_iter(['pid','name','cpu_percent','memory_info']):
+    processes = []
+    for proc in psutil.process_iter(['pid', 'name', 'cpu_percent', 'memory_percent']):
         try:
-            info=proc.info
+            info = proc.info
             if info['cpu_percent'] is None:
-                info['cpu_percent']=0.0
+                info['cpu_percent'] = 0.0
             if info['memory_percent'] is None:
-                info['memory_percent']=0.0
+                info['memory_percent'] = 0.0
             processes.append(info)
-        except(psutil.NoSuchProcess,psutil.AccessDenied,psutil.ZombieProcess) as e:
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess) as e:
             print(f"Error getting process info: {e}")
             continue
     return processes   

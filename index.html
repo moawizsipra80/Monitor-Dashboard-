@@ -5,24 +5,133 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>System Monitor & Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js CDN for live graphing -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <h1>System Monitor & Dashboard</h1>
-    <div class="cards-container">
-        <div class="card">
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-title">
+                <h1><i class="fa-solid fa-gauge-high"></i> Local System Monitor & Dashboard</h1>
+                <p>Real-Time Hardware & Task Manager</p>
+            </div>
+            <div id="connection-status" class="status-badge disconnected">
+                <span class="status-dot"></span> Disconnected
+            </div>
+        </header>
+
+        <!-- Stats Grid (All 4 cards side-by-side in grid) -->
+        <div class="status-grid">
+            <!-- CPU Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fa-solid fa-microchip"></i> CPU Usage</h3>
+                </div>
+                <div class="card-body">
+                    <div class="metric-value" id="cpu-value">0%</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="cpu-progress" style="width: 0%"></div>
+                    </div>
+                    <div class="metric-subtext">Core Usage</div>
+                </div>
+            </div>
+
+            <!-- Memory Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fa-solid fa-memory"></i> Memory Usage</h3>
+                </div>
+                <div class="card-body">
+                    <div class="metric-value" id="memory-value">0%</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="memory-progress" style="style: 0%"></div>
+                    </div>
+                    <div class="metric-subtext" id="memory-info">0MB / 0MB</div>
+                </div>
+            </div>
+
+            <!-- Disk Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fa-solid fa-hard-drive"></i> Disk Usage</h3>
+                </div>
+                <div class="card-body">
+                    <div class="metric-value" id="disk-value">0%</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="disk-progress" style="width: 0%"></div>
+                    </div>
+                    <div class="metric-subtext" id="disk-info">0GB / 0GB</div>
+                </div>
+            </div>
+
+            <!-- Network Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fa-solid fa-network-wired"></i> Network Activity</h3>
+                </div>
+                <div class="card-body network-body">
+                    <div class="net-stat">
+                        <span><i class="fa-solid fa-arrow-up"></i> Sent:</span>
+                        <strong id="net-sent">0.00 MB/s</strong>
+                    </div>
+                    <div class="net-stat">
+                        <span><i class="fa-solid fa-arrow-down"></i> Received:</span>
+                        <strong id="net-received">0.00 MB/s</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Graph Section -->
+        <div class="card chart-card">
             <div class="card-header">
-                <h2>CPU Usage</h2>
+                <h3><i class="fa-solid fa-chart-line"></i> Performance History</h3>
             </div>
             <div class="card-body">
-                <div class="card-content">
-                    <div class="card-text" id="cpu-usage">0%</div>
+                <div class="chart-container" style="position: relative; height:250px; width:100%">
+                    <canvas id="performance-chart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Process Manager Section -->
+        <div class="card">
+            <div class="card-header search-header">
+                <h3><i class="fa-solid fa-list"></i> Process Manager</h3>
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="process-search" placeholder="Search processes...">
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-wrapper">
+                    <table class="process-table">
+                        <thead>
+                            <tr>
+                                <th><i class="fa-solid fa-user"></i> User</th>
+                                <th><i class="fa-solid fa-hashtag"></i> PID</th>
+                                <th><i class="fa-solid fa-font"></i> Name</th>
+                                <th><i class="fa-solid fa-microchip"></i> CPU %</th>
+                                <th><i class="fa-solid fa-memory"></i> Memory %</th>
+                                <th><i class="fa-solid fa-cog"></i> Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="process-table-body">
+                            <tr>
+                                <td colspan="6" style="text-align: center; padding: 20px;">Connecting to backend...</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-    <script src="script.js"></script>
+    <script src="app.js"></script>
 </body>
 
 </html>
